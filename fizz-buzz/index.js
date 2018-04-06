@@ -1,20 +1,26 @@
 function fizzBuzz(number) {
-	if (number % 15 === 0) 
-		return('<div class="fizz-buzz-item fizzbuzz"><span>fizzbuzz</span></div>');
+	if (number % 15 === 0)
+		return 'fizzbuzz';
 	if(number % 3 === 0)
-		return('<div class="fizz-buzz-item fizz"><span>fizz</span></div>');
+		return 'fizz';
 	if(number % 5 === 0)
-		return('<div class="fizz-buzz-item buzz"><span>buzz</span></div>');
-	return(`<div class="fizz-buzz-item"><span>${number}</span></div>`);
+		return  'buzz';
+	return number;
+}
+
+function toHtml(value) {
+	return `
+	<div class="fizz-buzz-item ${ typeof value === 'string'? value : '' }">
+        <span>${value}</span>
+    </div>`;
 }
 
 (function() {
 	$('#number-chooser').on('submit', function(event) {
 		event.preventDefault();
-		console.log(event.target);
-		for(let i = 1; i <= $(event.target).find('input').val() ; i++)
-		{
-			$('.js-results').append(fizzBuzz(i));
+		$('.js-results').html('');
+		for(let i = 1; i <= $(event.target).find('input').val() ; i++){
+			$('.js-results').append(toHtml(fizzBuzz(i)));
 		}
 	});
 })();
